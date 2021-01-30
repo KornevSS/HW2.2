@@ -14,37 +14,48 @@ class ViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
-    @IBOutlet var redLabel: UILabel!
-    @IBOutlet var greenLabel: UILabel!
-    @IBOutlet var blueLabel: UILabel!
+    @IBOutlet var redLabelValue: UILabel!
+    @IBOutlet var greenLabelValue: UILabel!
+    @IBOutlet var blueLabelValue: UILabel!
     
     @IBOutlet var colorPanelView: UIView!
     
-    private var colorPanelColor: UIColor {
+    private var currentRGB: UIColor {
         UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
     }
     
+    private let rounding: Float = 100 // Rounding values for labels
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        colorPanelView.backgroundColor = colorPanelColor
+        updateValuesOfLabels(red: true, green: true, blue: true)
     }
 
     @IBAction func redSliderAction() {
-        colorPanelView.backgroundColor = colorPanelColor
-        redLabel.text = String(redSlider.value)
-
+        updateValuesOfLabels(red: true, green: false, blue: false)
     }
     
     @IBAction func greenSliderAction() {
-        colorPanelView.backgroundColor = colorPanelColor
-        greenLabel.text = String(greenSlider.value)
+        updateValuesOfLabels(red: false, green: true, blue: false)
     }
     
     @IBAction func blueSliderAction() {
-        colorPanelView.backgroundColor = colorPanelColor
-        blueLabel.text = String(blueSlider.value)
+        updateValuesOfLabels(red: false, green: false, blue: true)
     }
     
+    private func updateValuesOfLabels(red: Bool, green: Bool, blue: Bool) {
+        colorPanelView.backgroundColor = currentRGB
+        if red {
+            redLabelValue.text = String(round(redSlider.value * rounding) / rounding)
+        }
+        if green {
+            greenLabelValue.text = String(round(greenSlider.value * rounding) / rounding)
+        }
+        if blue {
+            blueLabelValue.text = String(round(blueSlider.value * rounding) / rounding)
+        }
+    }
 
 }
 
