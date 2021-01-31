@@ -19,33 +19,28 @@ class ViewController: UIViewController {
     @IBOutlet var blueLabelValue: UILabel!
     
     @IBOutlet var colorPanelView: UIView!
-    
-    private var currentRGB: UIColor {
-        UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
-    }
-    
+
     private let rounding: Float = 100 // Rounding values for labels
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateValuesOfLabels(red: true, green: true, blue: true)
+        updateColorValues(red: true, green: true, blue: true)
     }
 
     @IBAction func redSliderAction() {
-        updateValuesOfLabels(red: true, green: false, blue: false)
+        updateColorValues(red: true, green: false, blue: false)
     }
     
     @IBAction func greenSliderAction() {
-        updateValuesOfLabels(red: false, green: true, blue: false)
+        updateColorValues(red: false, green: true, blue: false)
     }
     
     @IBAction func blueSliderAction() {
-        updateValuesOfLabels(red: false, green: false, blue: true)
+        updateColorValues(red: false, green: false, blue: true)
     }
     
-    private func updateValuesOfLabels(red: Bool, green: Bool, blue: Bool) {
-        colorPanelView.backgroundColor = currentRGB
+    private func updateColorValues(red: Bool, green: Bool, blue: Bool) {
+        colorPanelView.backgroundColor = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
         if red {
             redLabelValue.text = String(round(redSlider.value * rounding) / rounding)
         }
